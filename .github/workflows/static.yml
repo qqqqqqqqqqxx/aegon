@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt  # Install your project dependencies
-
+  
       - name: Run Tests
         run: |
           python test.py 
@@ -29,6 +29,7 @@ jobs:
       - name: Install Sphinx
         run: |
           pip install sphinx
+          pip install sphinx-rtd-theme
           
       - name: Checkout Repository
         uses: actions/checkout@v2
