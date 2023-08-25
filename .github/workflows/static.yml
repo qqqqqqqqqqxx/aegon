@@ -25,10 +25,14 @@ jobs:
       - name: Run Tests
         run: |
           python test.py 
+          
+      - name: Install Sphinx
+        run: |
+          pip install sphinx
 
       - name: Build Sphinx Documentation
         run: |
-          make docs/ html  # Or any other Sphinx build command
+          make -C docs/ html
 
       - name: Deploy Documentation
         run: |
