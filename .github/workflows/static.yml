@@ -29,7 +29,10 @@ jobs:
       - name: Install Sphinx
         run: |
           pip install sphinx
-
+          
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
       - name: Build Sphinx Documentation
         run: |
           make -C docs/ html
