@@ -33,6 +33,4 @@ jobs:
       - name: Deploy Documentation
         run: |
           # Copy the generated HTML to a deployment destination (e.g., GitHub Pages)
-          cp -r docs/build/html/*
-        env:
-          GITHUB_TOKEN: ${{ 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 }}  # Required for pushing to GitHub Pages repository
+          cp -r docs/build/html/* 
