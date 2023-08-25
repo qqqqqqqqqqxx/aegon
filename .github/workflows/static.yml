@@ -35,7 +35,7 @@ jobs:
         
       - name: Build Sphinx Documentation
         run: |
-          make -C docs/ html
+          make html
 
       - name: Deploy Documentation
         run: |
