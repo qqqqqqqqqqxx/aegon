@@ -41,6 +41,6 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           mkdir gh-pages
-          cp -r docs/build/html/* gh-pages/
+          cp -r build/html/* gh-pages/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
