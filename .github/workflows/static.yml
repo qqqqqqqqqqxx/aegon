@@ -16,23 +16,23 @@ jobs:
       - name: Set Up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.10.0
+          python-version: 3.x
 
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt  # Install your project dependencies
 
-      # - name: Run Tests
-      #   run: |
-      #     pytest  # Run your tests using pytest or your preferred testing framework
+      - name: Run Tests
+        run: |
+          test
 
       - name: Build Sphinx Documentation
         run: |
-          make -C docs/ html  # Or any other Sphinx build command
+          make docs/ html  # Or any other Sphinx build command
 
       - name: Deploy Documentation
         run: |
           # Copy the generated HTML to a deployment destination (e.g., GitHub Pages)
-          cp -r docs/build/html/* deploy-folder/
+          cp -r docs/build/html/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Required for pushing to GitHub Pages repository
+          GITHUB_TOKEN: ${{ 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 }}  # Required for pushing to GitHub Pages repository
