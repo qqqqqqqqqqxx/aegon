@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          test
+          pytest 
 
       - name: Build Sphinx Documentation
         run: |
