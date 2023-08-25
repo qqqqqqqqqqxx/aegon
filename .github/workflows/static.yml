@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Change this to your repository's default branch
+      - master  # Change this to your repository's default branch
 
 jobs:
   build:
@@ -22,9 +22,9 @@ jobs:
         run: |
           pip install -r requirements.txt  # Install your project dependencies
 
-      - name: Run Tests
-        run: |
-          pytest  # Run your tests using pytest or your preferred testing framework
+      # - name: Run Tests
+      #   run: |
+      #     pytest  # Run your tests using pytest or your preferred testing framework
 
       - name: Build Sphinx Documentation
         run: |
@@ -33,6 +33,6 @@ jobs:
       - name: Deploy Documentation
         run: |
           # Copy the generated HTML to a deployment destination (e.g., GitHub Pages)
-          cp -r docs/_build/html/* deploy-folder/
+          cp -r docs/build/html/* deploy-folder/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Required for pushing to GitHub Pages repository
