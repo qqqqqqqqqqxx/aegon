@@ -38,7 +38,9 @@ jobs:
         run: |
           make html
 
-      - name: Deploy Documentation
+      - name: Deploy to GitHub Pages
         run: |
-          # Copy the generated HTML to a deployment destination (e.g., GitHub Pages)
-          cp -r docs/build/html/* 
+          mkdir gh-pages
+          cp -r docs/_build/html/* gh-pages/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
