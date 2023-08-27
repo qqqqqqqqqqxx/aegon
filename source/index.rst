@@ -10,9 +10,9 @@ This is the refactor version of Main.py from the 1st round questions.
 
 The following refactors have been made:
    - simplified the calculation process with groupby and apply
-   - OOP structure
-   - pipelines
-   - add tests
+   - OOP structure: convert to static/classmethod
+   - pipelines: add test pipelines
+   - add documentation
 
 
 .. toctree::
@@ -21,6 +21,7 @@ The following refactors have been made:
 
 .. automodule:: aegon.main
    :members:
+
 
 
 Indices and tables

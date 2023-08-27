@@ -101,7 +101,7 @@
 </div>
 <dl class="py class" id="module-aegon.main">
 <dt class="sig sig-object py" id="aegon.main.Portfolio">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aegon.main.</span></span><span class="sig-name descname"><span class="pre">Portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aegon.main.Portfolio" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aegon.main.</span></span><span class="sig-name descname"><span class="pre">Portfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aegon/main.html#Portfolio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aegon.main.Portfolio" title="Link to this definition"></a></dt>
 <dd><p>A general portfolio class that implements methods common across different portfolio classes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -125,7 +125,7 @@ and the columns are the tenors of interest (2, 10, 20, 40).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="aegon.main.Portfolio.get_cashflows_attribution">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cashflows_attribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#aegon.main.Portfolio.get_cashflows_attribution" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cashflows_attribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/aegon/main.html#Portfolio.get_cashflows_attribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aegon.main.Portfolio.get_cashflows_attribution" title="Link to this definition"></a></dt>
 <dd><p>Load the matrix used to attribute “detailed” cashflows from the file to tenors of interest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -140,7 +140,7 @@ and the columns are the years used in the file.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="aegon.main.Portfolio.get_fund_portfolio_data">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_fund_portfolio_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fund</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aegon.main.Portfolio.get_fund_portfolio_data" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_fund_portfolio_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fund</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aegon/main.html#Portfolio.get_fund_portfolio_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aegon.main.Portfolio.get_fund_portfolio_data" title="Link to this definition"></a></dt>
 <dd><p>Placeholder method; details to be provided in child classes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -154,7 +154,7 @@ and the columns are the years used in the file.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="aegon.main.Portfolio.get_instrument_cashflows">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_instrument_cashflows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_instrument_cashflow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aegon.main.Portfolio.get_instrument_cashflows" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_instrument_cashflows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_instrument_cashflow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aegon/main.html#Portfolio.get_instrument_cashflows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aegon.main.Portfolio.get_instrument_cashflows" title="Link to this definition"></a></dt>
 <dd><p>A placeholder method; this should be overriden in type-specific child classes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -184,7 +184,7 @@ and the columns are the years used in the file.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="aegon.main.SwapPortfolio">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aegon.main.</span></span><span class="sig-name descname"><span class="pre">SwapPortfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aegon.main.SwapPortfolio" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aegon.main.</span></span><span class="sig-name descname"><span class="pre">SwapPortfolio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aegon/main.html#SwapPortfolio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aegon.main.SwapPortfolio" title="Link to this definition"></a></dt>
 <dd><p>A swap-specific portfolio class. Inherits from the general Portfolio class, and implements
 methods specific to swaps.</p>
 <dl class="simple">
@@ -196,7 +196,7 @@ methods specific to swaps.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="aegon.main.SwapPortfolio.cashflow_per_counterparty">
-<span class="sig-name descname"><span class="pre">cashflow_per_counterparty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aegon.main.SwapPortfolio.cashflow_per_counterparty" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cashflow_per_counterparty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aegon/main.html#SwapPortfolio.cashflow_per_counterparty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aegon.main.SwapPortfolio.cashflow_per_counterparty" title="Link to this definition"></a></dt>
 <dd><p>Calculate total cashflows for each counterparty across swaps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -210,7 +210,7 @@ methods specific to swaps.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="aegon.main.SwapPortfolio.get_fund_portfolio_data">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_fund_portfolio_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fund</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'EuroSwaps'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aegon.main.SwapPortfolio.get_fund_portfolio_data" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_fund_portfolio_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fund</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'EuroSwaps'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aegon/main.html#SwapPortfolio.get_fund_portfolio_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aegon.main.SwapPortfolio.get_fund_portfolio_data" title="Link to this definition"></a></dt>
 <dd><p>Prepare the data for a specific fund.
 Read the holdings file to find out what instruments are in the fund’s portfolio.
 Read the instruments file to get the instrument-specific data.
@@ -231,7 +231,6 @@ and the columns are the other variables.</p>
 
 </dd></dl>
 
-<p>Try this</p>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>

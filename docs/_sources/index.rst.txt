@@ -22,7 +22,6 @@ The following refactors have been made:
 .. automodule:: aegon.main
    :members:
 
-Try this
 
 
 Indices and tables
