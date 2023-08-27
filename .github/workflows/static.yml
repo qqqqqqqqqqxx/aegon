@@ -43,12 +43,12 @@ jobs:
           mkdir gh-pages
           cp -r build/html/* gh-pages/
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN  }}
       
       - name: Push to gh-pages Branch
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
           script: |
             const fs = require('fs');
             const path = require('path');
