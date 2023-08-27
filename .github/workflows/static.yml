@@ -37,20 +37,20 @@ jobs:
       - name: Build Sphinx Documentation
         run: |
           make html
-
+      
       - name: Deploy to GitHub Pages
         run: |
           mkdir gh-pages
           cp -r build/html/* gh-pages/
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN  }}
+      
       - name: Push to gh-pages Branch
         run: |
           cd gh-pages
           git init
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name qqqqqqqqqqxx
+          git config user.email sysuwangtx@hotmail.com
           git add .
           git commit -m "Deploy Sphinx documentation"
-          git push --force --quiet "https://${{ GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" master:gh-pages
+          git push --force --quiet "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" master:gh-pages
