@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aegon.main &mdash; aegon-interview-assignment 0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            aegon-interview-assignment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">aegon-interview-assignment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">aegon.main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for aegon.main</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># CONSTANTS</span>
+<span class="c1"># Files</span>
+
+<span class="n">DATA_FOLDER</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span>  <span class="c1"># change data_sources to data</span>
+<span class="n">HOLDINGS_FILE</span> <span class="o">=</span> <span class="s2">&quot;holdings.csv&quot;</span>
+<span class="n">INSTRUMENTS_FILE</span> <span class="o">=</span> <span class="s2">&quot;instruments.csv&quot;</span>
+<span class="n">KEYRATE_ATTRIBUTION_FILE</span> <span class="o">=</span> <span class="s2">&quot;cashflows_attribution.csv&quot;</span>
+<span class="c1"># Columns</span>
+<span class="n">ID</span> <span class="o">=</span> <span class="s2">&quot;ISIN&quot;</span>
+<span class="n">FUND_NAME</span> <span class="o">=</span> <span class="s2">&quot;FUND&quot;</span>
+<span class="n">INSTRUMENT_TYPE</span> <span class="o">=</span> <span class="s2">&quot;TYPE&quot;</span>
+<span class="n">TOTAL_CASHFLOW</span> <span class="o">=</span> <span class="s2">&quot;CF_TOTAL&quot;</span>
+<span class="n">COUNTERPARTY</span> <span class="o">=</span> <span class="s2">&quot;COUNTERPARTY&quot;</span>
+<span class="n">CF_COLUMNS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CF_1Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_2Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_3Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_4Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_5Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_10Y&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;CF_15Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_20Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_25Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_30Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_35Y&quot;</span><span class="p">,</span> <span class="s2">&quot;CF_40Y&quot;</span><span class="p">]</span>
+<span class="n">CF_TENORS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+<span class="c1"># Values</span>
+<span class="n">SWAP_TYPE</span> <span class="o">=</span> <span class="s2">&quot;SWAP&quot;</span>
+
+
+<span class="c1"># Portfolio classes</span>
+<div class="viewcode-block" id="Portfolio">
+<a class="viewcode-back" href="../../index.html#aegon.main.Portfolio">[docs]</a>
+<span class="k">class</span> <span class="nc">Portfolio</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A general portfolio class that implements methods common across different portfolio classes.</span>
+
+<span class="sd">    :param portfolio_data: a dataframe of all the instruments in the portfolio</span>
+<span class="sd">    :type portfolio_data: pd.DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">portfolio_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Portfolio object.</span>
+
+<span class="sd">        :param portfolio_data: a dataframe of all the instruments in the portfolio,</span>
+<span class="sd">            where the index is the ISINs of the instruments and the columns are the other variables.</span>
+<span class="sd">        :type portfolio_data: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">portfolio_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cashflows_attribution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cashflows_attribution</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cashflows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_portfolio_cashflows</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_instruments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of instruments in the portfolio.</span>
+
+<span class="sd">        :return: Number of instruments</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">calc_portfolio_cashflows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate cashflow pattern for each instrument using the type-specific method.</span>
+
+<span class="sd">        :return: a dataframe of cashflows, where the index is the ISINs of the instruments,</span>
+<span class="sd">            and the columns are the tenors of interest (2, 10, 20, 40).</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">CF_COLUMNS</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">cashflows_attribution</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Portfolio.get_cashflows_attribution">
+<a class="viewcode-back" href="../../index.html#aegon.main.Portfolio.get_cashflows_attribution">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_cashflows_attribution</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load the matrix used to attribute &quot;detailed&quot; cashflows from the file to tenors of interest.</span>
+
+<span class="sd">        :return: a dataframe of attribution weights, where the index is the keyrates,</span>
+<span class="sd">            and the columns are the years used in the file.</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keyrate_attribution_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_FOLDER</span><span class="p">,</span> <span class="n">KEYRATE_ATTRIBUTION_FILE</span><span class="p">)</span>
+        <span class="n">keyrate_attribution</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">keyrate_attribution_filepath</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">keyrate_attribution</span></div>
+
+
+<div class="viewcode-block" id="Portfolio.get_instrument_cashflows">
+<a class="viewcode-back" href="../../index.html#aegon.main.Portfolio.get_instrument_cashflows">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_instrument_cashflows</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">original_instrument_cashflow</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A placeholder method; this should be overriden in type-specific child classes.</span>
+
+<span class="sd">        :param original_instrument_cashflow: The cashflow data of the original instrument.</span>
+<span class="sd">        :type original_instrument_cashflow: Specific type (to be defined in child classes)</span>
+<span class="sd">        :raises: NotImplemented</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span></div>
+
+
+<div class="viewcode-block" id="Portfolio.get_fund_portfolio_data">
+<a class="viewcode-back" href="../../index.html#aegon.main.Portfolio.get_fund_portfolio_data">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_fund_portfolio_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fund</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Placeholder method; details to be provided in child classes.</span>
+
+<span class="sd">        :param fund: The fund data.</span>
+<span class="sd">        :type fund: Specific type (to be defined in child classes)</span>
+<span class="sd">        :raises: NotImplemented</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SwapPortfolio">
+<a class="viewcode-back" href="../../index.html#aegon.main.SwapPortfolio">[docs]</a>
+<span class="k">class</span> <span class="nc">SwapPortfolio</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; A swap-specific portfolio class. Inherits from the general Portfolio class, and implements</span>
+<span class="sd">    methods specific to swaps.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        portfolio_data (pd.DataFrame): a dataframe of all the swaps in the portfolio,</span>
+<span class="sd">            where the index is the ISINs of the swaps, and the columns are the other variables.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">portfolio_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">portfolio_data</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SwapPortfolio.get_fund_portfolio_data">
+<a class="viewcode-back" href="../../index.html#aegon.main.SwapPortfolio.get_fund_portfolio_data">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_fund_portfolio_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fund</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;EuroSwaps&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepare the data for a specific fund.</span>
+<span class="sd">        Read the holdings file to find out what instruments are in the fund&#39;s portfolio.</span>
+<span class="sd">        Read the instruments file to get the instrument-specific data.</span>
+<span class="sd">        Append the instrument data to the portfolio.</span>
+
+<span class="sd">        :param fund: the name of the fund</span>
+<span class="sd">        :type fund: str</span>
+<span class="sd">        :return: a dataframe of all the instruments in the portfolio, where the index is the ISINs of the instruments,</span>
+<span class="sd">                 and the columns are the other variables.</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read files</span>
+        <span class="n">instruments_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_FOLDER</span><span class="p">,</span> <span class="n">INSTRUMENTS_FILE</span><span class="p">)</span>
+
+        <span class="n">instruments</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">instruments_filepath</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span>
+                                  <span class="n">index_col</span><span class="o">=</span><span class="n">ID</span><span class="p">)</span>  <span class="c1"># remove ID, no column name in CSV file</span>
+        <span class="n">holdings_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_FOLDER</span><span class="p">,</span> <span class="n">HOLDINGS_FILE</span><span class="p">)</span>
+        <span class="n">holdings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">holdings_filepath</span><span class="p">)</span>
+
+        <span class="c1"># Filter fund holdings</span>
+        <span class="n">sel_fund</span> <span class="o">=</span> <span class="n">holdings</span><span class="p">[</span><span class="n">FUND_NAME</span><span class="p">]</span> <span class="o">==</span> <span class="n">fund</span>
+        <span class="n">fund_holdings</span> <span class="o">=</span> <span class="n">holdings</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sel_fund</span><span class="p">]</span>
+        <span class="c1"># Merge by column name</span>
+        <span class="n">fund_holdings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fund_holdings</span><span class="p">,</span> <span class="n">instruments</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">ID</span><span class="p">)</span>
+        <span class="n">sel_swaps</span> <span class="o">=</span> <span class="n">fund_holdings</span><span class="p">[</span><span class="s2">&quot;TYPE&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">SWAP_TYPE</span>  <span class="c1"># is this for only EuroSwaps</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fund_holdings</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sel_swaps</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="SwapPortfolio.cashflow_per_counterparty">
+<a class="viewcode-back" href="../../index.html#aegon.main.SwapPortfolio.cashflow_per_counterparty">[docs]</a>
+    <span class="k">def</span> <span class="nf">cashflow_per_counterparty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate total cashflows for each counterparty across swaps.</span>
+
+<span class="sd">        :return: a series of total cashflow for each counterparty in the portfolio.</span>
+<span class="sd">        :rtype: pd.Series</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total_cf_per_counterparty_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">COUNTERPARTY</span><span class="p">)[</span><span class="n">TOTAL_CASHFLOW</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">total_cf_per_counterparty_new</span></div>
+</div>
+
+
+
+<span class="c1"># Instantiate with the class method</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">swap_portfolio</span> <span class="o">=</span> <span class="n">SwapPortfolio</span><span class="o">.</span><span class="n">get_fund_portfolio_data</span><span class="p">()</span>
+
+    <span class="c1"># Summarize portfolio</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">swap_portfolio</span><span class="o">.</span><span class="n">n_instruments</span><span class="si">}</span><span class="s2"> + swaps in the portfolio.&quot;</span><span class="p">)</span>
+
+    <span class="n">portfolio_casfhlow</span> <span class="o">=</span> <span class="n">swap_portfolio</span><span class="o">.</span><span class="n">cashflows</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Portfolio has the following  at tenors:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">portfolio_casfhlow</span><span class="p">)</span>
+
+    <span class="n">total_counterparty_cf</span> <span class="o">=</span> <span class="n">swap_portfolio</span><span class="o">.</span><span class="n">cashflow_per_counterparty</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The counterparty with the highest total cashflow is&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">total_counterparty_cf</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;with a cashflow of&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">total_counterparty_cf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Tianxiang Wang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
