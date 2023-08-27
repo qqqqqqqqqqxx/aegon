@@ -46,24 +46,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN  }}
       
       - name: Push to gh-pages Branch
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const path = require('path');
-            const { execSync } = require('child_process');
-      
-            const repoPath = process.env.GITHUB_REPOSITORY;
-            const ghPagesPath = path.join(process.cwd(), 'gh-pages');
-      
-            // Set the Git configuration temporarily
-            execSync(`git config user.name "GitHub Actions"`);
-            execSync(`git config user.email "actions@github.com"`);
-      
-            // Commit and push changes
-            execSync(`cd ${ghPagesPath}`);
-            execSync(`git init`);
-            execSync(`git add .`);
-            execSync(`git commit -m "Deploy Sphinx documentation"`);
-            execSync(`git push --force "https://${process.env.GITHUB_TOKEN}@github.com/${repoPath}.git" master:gh-pages`);
+        run: |
+          cd gh-pages
+          git init
+          git config user.name qqqqqqqqqqxx
+          git config user.email sysuwangtx@hotmail.com
+          git add .
+          git commit -m "Deploy Sphinx documentation"
+          git push --force --quiet "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" master:gh-pages
